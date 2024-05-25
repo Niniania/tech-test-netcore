@@ -25,3 +25,6 @@ Two ways - jQuery and MVC (form submission to the be)
 
 Requierements question - should this choice be remembered - should it be persisted ?
 if so - per list basis or 1 setting per user ?
+
+6
+Also addedd a display if current logged in user is the owner or not, otherwise it might be confusing for the user

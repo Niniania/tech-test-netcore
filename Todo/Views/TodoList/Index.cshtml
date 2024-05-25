@@ -27,9 +27,11 @@
                 else
                 {
                     <span class="badge">@list.NumberOfNotDoneItems</span>
-                    <a asp-action="Detail" asp-route-todoListId="@list.TodoListId">@list.Title</a>
+                    <a asp-action="Detail" asp-route-todoListId="@list.TodoListId"> @list.Title</a>
                 }
+            <div> @(list.IsOwner ? "(Owner)" : "(Participant)")</div>
             </li>
+          
         }
     </ul>
 </div>

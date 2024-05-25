@@ -28,7 +28,7 @@ namespace Todo.Controllers
         {
             var userId = User.Id();
             var todoLists = dbContext.RelevantTodoLists(userId);
-            var viewmodel = TodoListIndexViewmodelFactory.Create(todoLists);
+            var viewmodel = TodoListIndexViewmodelFactory.Create(todoLists, userId);
             return View(viewmodel);
         }
 
