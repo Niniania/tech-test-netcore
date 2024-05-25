@@ -14,6 +14,14 @@ Notes on the arch
 Why the use of name "Factory" for the model mapper? is it simple factory just to encapsulate the creation ?
 ApplicationDbContextConvenience is a repository equivalent? and a service
 
-3 already done in step 1!
+3 
+already done in step 1!
 
-4 Done
+4 
+Done
+
+5
+Two ways - jQuery and MVC (form submission to the be)
+
+Requierements question - should this choice be remembered - should it be persisted ?
+if so - per list basis or 1 setting per user ?

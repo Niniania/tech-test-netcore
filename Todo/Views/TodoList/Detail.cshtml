@@ -12,15 +12,33 @@
 <div class="col-md-6">
 
     <ul class="list-group">
+        <form method="get" asp-action="Detail" asp-controller="TodoList">
+            <input type="hidden" name="todoListId" value="@Model.TodoListId" />
+            <div>
+                <label>
+                    <input type="checkbox" name="hideCompleted" onchange="this.form.submit();" value="true" @(Model.HideCompleted ? "checked" : "") /> (MVC) Hide Completed Items
+                </label>
+            </div>
+        </form>
 
         <li class="list-group-item">
+           <div>
             <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
                 <strong>Add New Item</strong>
             </a>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" id="showHideComplete"> (jQuery) Hide Completed Todo Items
+                </label>
+            </div>
         </li>
 
         @foreach (var item in Model.Items)
         {
+
+            string completedClass = item.IsDone ? "completed" : "opened";
+
             string contextualClass;
             switch (item.Importance)
             {
@@ -35,7 +53,7 @@
                     break;
             }
 
-            <li class="list-group-item @contextualClass">
+            <li class="list-group-item @contextualClass @completedClass">
                 
                 <div class="row">
 
@@ -67,3 +85,19 @@
         }
     </ul>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#showHideComplete').change(function () {
+                var hideCompleted = $(this).is(':checked');
+                if (hideCompleted) {
+                    $('.completed').hide();
+                } else {
+                    $('.completed').show();
+                }
+            });
+
+        });
+    </script>
+}
