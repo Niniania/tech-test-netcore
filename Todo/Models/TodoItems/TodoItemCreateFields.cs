@@ -11,6 +11,7 @@ namespace Todo.Models.TodoItems
         [Display(Name = "Responsible Party")]
         public string ResponsiblePartyId { get; set; }
         public Importance Importance { get; set; }
+        public int Rank { get; set; }
 
         public TodoItemCreateFields() { }
 

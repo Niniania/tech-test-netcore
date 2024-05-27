@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Todo.Data.Entities;
+using Todo.Models.TodoItems;
 
 namespace Todo.Tests
 {
@@ -12,7 +13,7 @@ namespace Todo.Tests
     {
         private readonly string title;
         private readonly IdentityUser owner;
-        private readonly List<(string, Importance)> items = new List<(string, Importance)>();
+        private readonly List<TodoItemEditFields> items = new List<TodoItemEditFields>();
 
         public TestTodoListBuilder(IdentityUser owner, string title)
         {
@@ -20,16 +21,16 @@ namespace Todo.Tests
             this.owner = owner;
         }
 
-        public TestTodoListBuilder WithItem(string itemTitle, Importance importance)
+        public TestTodoListBuilder WithItem(TodoItemEditFields item)
         {
-            items.Add((itemTitle, importance));
+            items.Add((item));
             return this;
         }
 
         public TodoList Build()
         {
             var todoList = new TodoList(owner, title);
-            var todoItems = items.Select(itm => new TodoItem(todoList.TodoListId, owner.Id, itm.Item1, itm.Item2));
+            var todoItems = items.Select(itm => new TodoItem(todoList.TodoListId, owner.Id, itm.Title, itm.Importance, itm.Rank));
             todoItems.ToList().ForEach(tlItm =>
             {
                 todoList.Items.Add(tlItm);

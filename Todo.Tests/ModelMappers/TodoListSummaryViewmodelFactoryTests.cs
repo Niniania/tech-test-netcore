@@ -32,9 +32,9 @@ namespace Todo.Tests.ModelMappers
             // Arrange
             var owner = new IdentityUser { Id = "1", UserName = "John Doe" };
             var todoList = new TestTodoListBuilder(owner, "Todo List")
-                .WithItem("Task 1", Importance.High)
-                .WithItem("Task 2", Importance.Low)
-                .WithItem("Task 3", Importance.High)
+                .WithItem(new TodoItemEditFields() { Title = "Task 1", Importance = Importance.High, Rank = 1 })
+                .WithItem(new TodoItemEditFields() { Title = "Task 2", Importance = Importance.Low, Rank = 2 })
+                .WithItem(new TodoItemEditFields() { Title = "Task 3", Importance = Importance.High, Rank = 3 })
                 .Build();
 
             // Mark one task as done

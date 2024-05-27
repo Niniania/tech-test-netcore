@@ -28,3 +28,8 @@ if so - per list basis or 1 setting per user ?
 
 6
 Also addedd a display if current logged in user is the owner or not, otherwise it might be confusing for the user
+
+7
+dotnet ef migrations add AddRankToTodoItem
+dotnet ef database update
+hidden the jquery sort, mvc makes more sense now with the sort combined

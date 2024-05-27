@@ -32,14 +32,24 @@ namespace Todo.Controllers
             return View(viewmodel);
         }
 
-        public IActionResult Detail(int todoListId, bool hideCompleted = false)
+        public IActionResult Detail(int todoListId, bool hideCompleted = false, SortOrder sortOrder = SortOrder.Rank)
         {
             var todoList = dbContext.SingleTodoList(todoListId);
             var viewmodel = TodoListDetailViewmodelFactory.Create(todoList);
+            viewmodel.SortOrder = sortOrder;
             viewmodel.HideCompleted = hideCompleted;
             if (hideCompleted)
             {
                 viewmodel.Items = viewmodel.Items.Where(x => !x.IsDone).ToList();
+            }
+            switch (sortOrder)
+            {
+                case SortOrder.Rank:
+                    viewmodel.Items = viewmodel.Items.OrderBy(i => i.Rank).ToList();
+                    break;
+                case SortOrder.Importance:
+                    viewmodel.Items = viewmodel.Items.OrderBy(i => i.Importance).ToList();
+                    break;
             }
             return View(viewmodel);
         }
