@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Todo.Data;
 using Todo.Data.Entities;
@@ -20,6 +21,14 @@ namespace Todo.Services
                 .Include(tl => tl.Items)
                 .ThenInclude(ti => ti.ResponsibleParty)
                 .Single(tl => tl.TodoListId == todoListId);
+        }
+        public static async Task<TodoList> SingleTodoListAsync(this ApplicationDbContext dbContext, int todoListId)
+        {
+            return await dbContext.TodoLists
+                .Include(tl => tl.Owner)
+                .Include(tl => tl.Items)
+                .ThenInclude(ti => ti.ResponsibleParty)
+                .SingleOrDefaultAsync(tl => tl.TodoListId == todoListId);
         }
 
         public static TodoItem SingleTodoItem(this ApplicationDbContext dbContext, int todoItemId)

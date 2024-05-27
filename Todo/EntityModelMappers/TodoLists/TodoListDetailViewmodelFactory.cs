@@ -1,16 +1,26 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Todo.Data.Entities;
 using Todo.EntityModelMappers.TodoItems;
 using Todo.Models.TodoLists;
+using Todo.Services;
 
 namespace Todo.EntityModelMappers.TodoLists
 {
-    public static class TodoListDetailViewmodelFactory
+    public class TodoListDetailViewmodelFactory
     {
-        public static TodoListDetailViewmodel Create(TodoList todoList)
+        private readonly Gravatar _gravatarService;
+
+        public TodoListDetailViewmodelFactory(Gravatar gravatarService)
         {
-            var items = todoList.Items.Select(TodoItemSummaryViewmodelFactory.Create).OrderBy(x=>x.Importance).ToList();
-            return new TodoListDetailViewmodel(todoList.TodoListId, todoList.Title, items);
+            _gravatarService = gravatarService;
+        }
+
+        public async Task<TodoListDetailViewmodel> CreateAsync(TodoList todoList)
+        {
+            var items = await Task.WhenAll(todoList.Items.Select(item => TodoItemSummaryViewmodelFactory.CreateAsync(item, _gravatarService)));
+            var orderedItems = items.OrderBy(x => x.Importance).ToList();
+            return new TodoListDetailViewmodel(todoList.TodoListId, todoList.Title, orderedItems);
         }
     }
 }

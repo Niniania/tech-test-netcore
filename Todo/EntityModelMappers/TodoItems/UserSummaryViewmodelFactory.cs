@@ -5,9 +5,9 @@ namespace Todo.EntityModelMappers.TodoItems
 {
     public class UserSummaryViewmodelFactory
     {
-        public static UserSummaryViewmodel Create(IdentityUser identityUser)
+        public static UserSummaryViewmodel Create(IdentityUser identityUser, string displayName = null, string imageUrl = null)
         {
-            return new UserSummaryViewmodel(identityUser.UserName, identityUser.Email);
+            return new UserSummaryViewmodel(identityUser.UserName, identityUser.Email, displayName, imageUrl);
         }
     }
 }

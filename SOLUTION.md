@@ -33,3 +33,8 @@ Also addedd a display if current logged in user is the owner or not, otherwise i
 dotnet ef migrations add AddRankToTodoItem
 dotnet ef database update
 hidden the jquery sort, mvc makes more sense now with the sort combined
+
+8 
+to handle potential performance issue from gravatar Im calling it asynch, which then resulted in changing methods in the application to asynch
+created model based on sample json from gravat api, only the values needed are serialised
+added dependency injection for the services, as wanted to test and needed to mock 
