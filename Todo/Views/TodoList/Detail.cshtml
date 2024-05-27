@@ -1,6 +1,8 @@
 ﻿@using Azure.Core
 @using Todo.Controllers
 @using Todo.Data.Entities
+@using Todo.Models.TodoItems
+@using Todo.Models.TodoLists
 @using Todo.Services
 @model Todo.Models.TodoLists.TodoListDetailViewmodel
 
@@ -11,6 +13,16 @@
 
 <h2>@ViewData["Title"]</h2>
 
+<div class="col-md-6">
+    <div>
+        <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
+            <strong>Add New Item</strong>
+        </a>
+
+        @Html.Partial("_CreatePartial", new TodoItemCreateFields() { TodoListId = Model.TodoListId })
+
+    </div>
+</div>
 <div class="col-md-6">
 
     <ul class="list-group">
@@ -35,11 +47,7 @@
         </form>
 
         <li class="list-group-item">
-            <div>
-                <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
-                    <strong>Add New Item</strong>
-                </a>
-            </div>
+          
            @*  <div>
                 <label>
                     <input type="checkbox" id="showHideComplete"> (jQuery) Hide Completed Todo Items

@@ -24,7 +24,7 @@ namespace Todo.Controllers
         {
             var todoList = dbContext.SingleTodoList(todoListId);
             var fields = TodoItemCreateFieldsFactory.Create(todoList, User.Id());
-            return View(fields);
+            return View("_CreatePartial", fields);
         }
 
         [HttpPost]
